@@ -112,6 +112,14 @@ def draw_squares_from_circle(n, circle, window):
     ####################################################################
     # ------------------------------------------------------------------
 
+    import rosegraphics as rg
+    window = rg.RoseWindow
+    circle1 = circle
+    circle1.attach_to(window)
+
+    for _ in range(n):
+        
+
 
 def run_test_draw_circles_from_rectangle():
     """ Tests the   draw_circles_from_rectangle  function. """
