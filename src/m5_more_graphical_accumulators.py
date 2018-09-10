@@ -153,12 +153,12 @@ def run_test_draw_circles_from_rectangle():
     window1 = rg.RoseWindow(720, 500, title)
 
     # Test 1:
-    rectangle = rg.Rectangle(rg.Point(400, 250), rg.Point(440, 325))
+    rectangle = rg.Rectangle(rg.Point(440, 325), rg.Point(400, 250))
     rectangle.fill_color = 'green'
     draw_circles_from_rectangle(4, 5, rectangle, window1)
 
     # Test 2:
-    rectangle = rg.Rectangle(rg.Point(600, 400), rg.Point(500, 450))
+    rectangle = rg.Rectangle(rg.Point(600, 450), rg.Point(500, 400))
     rectangle.fill_color = 'blue'
     draw_circles_from_rectangle(8, 3, rectangle, window1)
 
@@ -216,7 +216,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -234,17 +234,25 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
 
     rectangle1 = rectangle
     rectangle1.attach_to(window)
+    color = rectangle.fill_color
 
     d = abs(rectangle.corner_1.y - rectangle.corner_2.y)
-
-    x = d / 2
+    x = rectangle.corner_2.x - (d / 2)
     for _ in range(m):
-        circle1 = rg.Circle(rg.Point(rectangle.corner_2.x - x, rectangle.corner_2.y + (d / 2)), (d / 2))
+        circle1 = rg.Circle(rg.Point(x, rectangle.corner_2.y + (d / 2)), (d / 2))
+        circle1.fill_color = color
         circle1.attach_to(window)
+
         x = x - d
+
+
+    d = abs(rectangle.corner_1.x - rectangle.corner_2.x)
+    y = rectangle.corner_2.y - (d / 2)
+    for _ in range(n):
+        circle1 = rg.Circle(rg.Point(rectangle.corner_2.x + (d / 2), y), (d / 2))
+        circle1.attach_to(window)
+        y = y - d
     window.render()
-
-
 
 
 
