@@ -361,14 +361,13 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     x2 = abs(rectangle2.corner_1.x - rectangle2.corner_2.x)
     y2 = abs(rectangle2.corner_1.y - rectangle2.corner_2.y)
 
-    center1 = rg.Point(x1 + (x1 / 2), y1 + (y1 / 2))
-    center2 = rg.Point(x2 + (x1 / 2), y2 + (y2 / 2))
+    center1 = rg.Point(rectangle1.corner_1.x + (x1 / 2), rectangle1.corner_2.y + (y1 / 2))
+    center2 = rg.Point(rectangle2.corner_1.x + (x1 / 2), rectangle2.corner_2.y + (y2 / 2))
 
     line = rg.Line(center1, center2)
     line.color = R1_color
     line.thickness = 5
     line.attach_to(window)
-
 
 
     window.render()
