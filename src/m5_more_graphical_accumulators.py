@@ -162,6 +162,8 @@ def run_test_draw_circles_from_rectangle():
     rectangle.fill_color = 'blue'
     draw_circles_from_rectangle(8, 3, rectangle, window1)
 
+    window1.close_on_mouse_click()
+
     # ------------------------------------------------------------------
     # A third test on ANOTHER window.
     # ------------------------------------------------------------------
@@ -173,7 +175,7 @@ def run_test_draw_circles_from_rectangle():
     rectangle.fill_color = 'yellow'
     draw_circles_from_rectangle(6, 10, rectangle, window2)
 
-    window1.close_on_mouse_click()
+
     window2.close_on_mouse_click()
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
@@ -230,8 +232,6 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     ####################################################################
     # ------------------------------------------------------------------
 
-    import rosegraphics as rg
-
     rectangle1 = rectangle
     rectangle1.attach_to(window)
     color = rectangle.fill_color
@@ -275,8 +275,8 @@ def run_test_draw_lines_from_rectangles():
     rectangle2.outline_color = 'blue'
     draw_lines_from_rectangles(rectangle1, rectangle2, 5, window1)
 
-    rectangle1 = rg.Rectangle(rg.Point(870, 30), rg.Point(750, 100))
-    rectangle2 = rg.Rectangle(rg.Point(700, 90), rg.Point(650, 60))
+    rectangle1 = rg.Rectangle(rg.Point(750, 100), rg.Point(870, 30))
+    rectangle2 = rg.Rectangle(rg.Point(650, 60), rg.Point(700, 90))
     rectangle2.outline_color = 'green'
     draw_lines_from_rectangles(rectangle1, rectangle2, 8, window1)
 
@@ -347,6 +347,31 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     ####################################################################
     # ------------------------------------------------------------------
 
+    R1_color = rectangle1.fill_color
+    R2_color = rectangle2.fill_color
+
+    rectangle3 = rectangle1
+    rectangle3.attach_to(window)
+    rectangle4 = rectangle2
+    rectangle4.attach_to(window)
+
+    x1 = abs(rectangle1.corner_1.x - rectangle1.corner_2.x)
+    y1 = abs(rectangle1.corner_1.y - rectangle1.corner_2.y)
+
+    x2 = abs(rectangle2.corner_1.x - rectangle2.corner_2.x)
+    y2 = abs(rectangle2.corner_1.y - rectangle2.corner_2.y)
+
+    center1 = rg.Point(x1 + (x1 / 2), y1 + (y1 / 2))
+    center2 = rg.Point(x2 + (x1 / 2), y2 + (y2 / 2))
+
+    line = rg.Line(center1, center2)
+    line.color = R1_color
+    line.thickness = 5
+    line.attach_to(window)
+
+
+
+    window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
