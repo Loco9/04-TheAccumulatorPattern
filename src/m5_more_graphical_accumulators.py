@@ -347,27 +347,36 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     ####################################################################
     # ------------------------------------------------------------------
 
-    R1_color = rectangle1.fill_color
-    R2_color = rectangle2.fill_color
-
     rectangle3 = rectangle1
-    rectangle3.attach_to(window)
     rectangle4 = rectangle2
+
+    rectangle3.attach_to(window)
     rectangle4.attach_to(window)
 
-    x1 = abs(rectangle1.corner_1.x - rectangle1.corner_2.x)
-    y1 = abs(rectangle1.corner_1.y - rectangle1.corner_2.y)
+    R1_color = rectangle1.outline_color
+    R2_color = rectangle2.outline_color
 
-    x2 = abs(rectangle2.corner_1.x - rectangle2.corner_2.x)
-    y2 = abs(rectangle2.corner_1.y - rectangle2.corner_2.y)
+    midpoint1 = rg.Point((rectangle1.corner_1.x + rectangle1.corner_2.x) / 2, (rectangle1.corner_1.y + rectangle1.corner_2.y) / 2)
+    midpoint2 = rg.Point((rectangle2.corner_1.x + rectangle2.corner_2.x) / 2, (rectangle2.corner_1.y + rectangle2.corner_2.y) / 2)
 
-    center1 = rg.Point(rectangle1.corner_1.x + (x1 / 2), rectangle1.corner_2.y + (y1 / 2))
-    center2 = rg.Point(rectangle2.corner_1.x + (x1 / 2), rectangle2.corner_2.y + (y2 / 2))
+    start = midpoint1
+    end = midpoint2
 
-    line = rg.Line(center1, center2)
-    line.color = R1_color
-    line.thickness = 5
-    line.attach_to(window)
+    for k in range(n):
+        line1 = rg.Line(start, end)
+        if k % 2 == 0:
+            line1.color = R2_color
+        elif k % 2 == 1:
+            line1.color = R1_color
+        line1.attach_to(window)
+        start.x = start.x - (rectangle1.corner_1.x + rectangle1.corner_2.x) / 2
+        start.y = start.y + (rectangle1.corner_1.y + rectangle1.corner_2.y) / 2
+
+        end.x = end.x - (rectangle2.corner_1.x + rectangle2.corner_2.x) / 2
+        end.y = end.y + (rectangle2.corner_1.y + rectangle2.corner_2.y) / 2
+
+        start = rg.Point(start.x, start.y)
+        end = rg.Point(end.x, end.y)
 
 
     window.render()
